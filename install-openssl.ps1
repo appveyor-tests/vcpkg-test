@@ -22,10 +22,10 @@ UninstallOpenSSL "OpenSSL 1.0.2p (64-bit)"
 UninstallOpenSSL "OpenSSL 1.1.0i (32-bit)"
 UninstallOpenSSL "OpenSSL 1.1.0i (64-bit)"
 
-Remove-Item C:\OpenSSL-Win32 -Recurse -Force
-Remove-Item C:\OpenSSL-Win64 -Recurse -Force
-Remove-Item C:\OpenSSL-v11-Win32 -Recurse -Force
-Remove-Item C:\OpenSSL-v11-Win64 -Recurse -Force
+Remove-Item C:\OpenSSL-Win32 -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\OpenSSL-Win64 -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\OpenSSL-v11-Win32 -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item C:\OpenSSL-v11-Win64 -Recurse -Force -ErrorAction SilentlyContinue
 
 
 
@@ -35,9 +35,9 @@ Write-Host "Downloading..."
 $exePath = "$($env:USERPROFILE)\Win32OpenSSL-1_1_0i.exe"
 (New-Object Net.WebClient).DownloadFile('https://slproweb.com/download/Win32OpenSSL-1_1_0i.exe', $exePath)
 Write-Host "Installing..."
-cmd /c start /wait $exePath /silent /verysilent /sp- /suppressmsgboxes /DIR=C:\OpenSSL-v11-Win32
+cmd /c start /wait $exePath /silent /verysilent /sp- /suppressmsgboxes /DIR=C:\OpenSSL-v11-Win32-temp
 Write-Host "Installed" -ForegroundColor Green
-
+Copy-Item C:\OpenSSL-v11-Win32-temp -Destination C:\OpenSSL-v11-Win32 -Recurse
 
 
 
@@ -47,11 +47,13 @@ Write-Host "Downloading..."
 $exePath = "$($env:USERPROFILE)\Win64OpenSSL-1_1_0i.exe"
 (New-Object Net.WebClient).DownloadFile('https://slproweb.com/download/Win64OpenSSL-1_1_0i.exe', $exePath)
 Write-Host "Installing..."
-cmd /c start /wait $exePath /silent /verysilent /sp- /suppressmsgboxes /DIR=C:\OpenSSL-v11-Win64
+cmd /c start /wait $exePath /silent /verysilent /sp- /suppressmsgboxes /DIR=C:\OpenSSL-v11-Win64-temp
 Write-Host "Installed" -ForegroundColor Green
+Copy-Item C:\OpenSSL-v11-Win64-temp -Destination C:\OpenSSL-v11-Win64 -Recurse
 
 
-
+UninstallOpenSSL "OpenSSL 1.1.0i (32-bit)"
+UninstallOpenSSL "OpenSSL 1.1.0i (64-bit)"
 
 
 Write-Host "Installing OpenSSL 1.0.x 32-bit ..." -ForegroundColor Cyan
