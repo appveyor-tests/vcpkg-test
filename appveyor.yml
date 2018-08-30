@@ -3,5 +3,7 @@ image: Visual Studio 2017
 build: off
 
 test_script:
+- cd "C:\Tools\vcpkg"
+- git pull
 - vcpkg update
 - vcpkg install grpc
