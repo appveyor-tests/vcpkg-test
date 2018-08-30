@@ -3,6 +3,8 @@ image: Visual Studio 2017
 build: off
 
 test_script:
+- rd /s /q C:\OpenSSL-v11-Win32
+- rd /s /q C:\OpenSSL-v11-Win64
 - cd "C:\Tools\vcpkg"
 - git pull
 - bootstrap-vcpkg.bat
