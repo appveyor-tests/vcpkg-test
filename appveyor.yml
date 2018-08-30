@@ -8,3 +8,6 @@ test_script:
 - bootstrap-vcpkg.bat
 - vcpkg update
 - vcpkg install grpc
+
+on_failure:
+- appveyor PushArtifact C:\Tools\vcpkg\buildtrees\grpc\install-x86-windows-dbg-out.log
